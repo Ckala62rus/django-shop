@@ -1,0 +1,5 @@
+!.gitignore
+/.idea
+pyvenv.cfg
+mydb
+/docker/postgres
