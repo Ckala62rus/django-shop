@@ -6,12 +6,16 @@ from django.shortcuts import render
 
 
 def index(request):
-    # return HttpResponse("Home page")
     context = {
-        "title" : "Home",
-        "content" : "Lorem ipsum dollar sit amet",
+        "title" : "Home - Главная страница",
+        "content" : "Магазин мебели HOME",
     }
     return render(request, template_name="index.html", context=context)
 
 def about(request: WSGIRequest):
-    return HttpResponse("About page")
+    context = {
+        "title": "Home - Главная страница",
+        "content": "Коротко о нас",
+        "about_text": "Мы тестовый интернет магазин"
+    }
+    return render(request, template_name="about.html", context=context)
