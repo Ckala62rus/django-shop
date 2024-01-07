@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{% static 'deps/css/bootstrap/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'deps/css/my_css.css' %}">
     <!-- Стиль footer-a для главной страницы -->
-    {% block css %}}{{% endblock %}
+    {% block css %}{% endblock %}
     <!-- Favicons for different platforms -->
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'deps/favicon/apple-touch-icon.png' %}">
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'deps/favicon/favicon-32x32.png' %}">
@@ -85,13 +85,13 @@
                             height="16">
                     </button>
                     <ul class="dropdown-menu bg-dark" data-bs-theme="dark">
-                        <li><a class="dropdown-item text-white" href="goods/catalog.html">Все товары</a></li>
-                        <li><a class="dropdown-item text-white" href="goods/catalog.html">Кухня</a></li>
-                        <li><a class="dropdown-item text-white" href="goods/catalog.html">Спальня</a></li>
-                        <li><a class="dropdown-item text-white" href="goods/catalog.html">Гостинная</a></li>
-                        <li><a class="dropdown-item text-white" href="goods/catalog.html">Офис</a></li>
-                        <li><a class="dropdown-item text-white" href="goods/catalog.html">Фурнитура</a></li>
-                        <li><a class="dropdown-item text-white" href="goods/catalog.html">Декор</a></li>
+                        <li><a class="dropdown-item text-white" href="{% url 'catalog:index' %}">Все товары</a></li>
+                        <li><a class="dropdown-item text-white" href="{% url 'catalog:index' %}">Кухня</a></li>
+                        <li><a class="dropdown-item text-white" href="{% url 'catalog:index' %}">Спальня</a></li>
+                        <li><a class="dropdown-item text-white" href="{% url 'catalog:index' %}">Гостинная</a></li>
+                        <li><a class="dropdown-item text-white" href="{% url 'catalog:index' %}">Офис</a></li>
+                        <li><a class="dropdown-item text-white" href="{% url 'catalog:index' %}">Фурнитура</a></li>
+                        <li><a class="dropdown-item text-white" href="{% url 'catalog:index' %}">Декор</a></li>
                     </ul>
                 </div>
                 <!-- Значек корзины, вызывает модальное окно -->

@@ -10,7 +10,7 @@ def index(request):
         "title" : "Home - Главная страница",
         "content" : "Магазин мебели HOME",
     }
-    return render(request, template_name="index.html", context=context)
+    return render(request, template_name="main/index.html", context=context)
 
 def about(request: WSGIRequest):
     context = {
@@ -18,4 +18,4 @@ def about(request: WSGIRequest):
         "content": "Коротко о нас",
         "about_text": "Мы тестовый интернет магазин"
     }
-    return render(request, template_name="about.html", context=context)
+    return render(request, template_name="main/about.html", context=context)
