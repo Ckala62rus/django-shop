@@ -4,11 +4,11 @@ from goods.models import Categories, Products
 # Register your models here.
 
 class CategoriesAdmin(admin.ModelAdmin):
-    pass
+    prepopulated_fields = {'slug': ('name',)}
 
 
 class ProductsAdmin(admin.ModelAdmin):
-    pass
+    prepopulated_fields = {'slug': ('name',)}
 
 
 admin.site.register(Categories, CategoriesAdmin)

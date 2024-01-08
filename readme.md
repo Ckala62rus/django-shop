@@ -35,4 +35,10 @@ python manage.py showmigrations
 12) create migration
 python manage.py makemigrations
 
+13) dump table to json
+python manage.py dumpdata goods.Categories > fixtures/goods/cats.json
+
+14) resotre database data from fixtures json files
+python manage.py loaddata fixtures/goods/cats.json
+
 
