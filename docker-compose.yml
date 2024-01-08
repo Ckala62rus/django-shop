@@ -8,7 +8,6 @@ services:
       context: .
       dockerfile: ./docker/project/Dockerfile
     command: python manage.py runserver 0.0.0.0:8000
-#    command: gunicorn Movies.wsgi:application --bind 0.0.0.0:8000
     ports:
       - 8000:8000
 #    expose:
@@ -17,13 +16,15 @@ services:
       - ./src:/usr/src/app
     depends_on:
       - db
+      - pgadmin
 
   db:
     image: postgres:14.1-alpine
     restart: always
     container_name: postgres_shop
     volumes:
-     - ./docker/postgres/db:/var/lib/postgresql/data
+#     - ./docker/postgres/db:/var/lib/postgresql/data
+     - ./docker/postgres/db:/tmp
       # - pgdata:/var/lib/postgresql/data
     env_file:
       - .env.dev
