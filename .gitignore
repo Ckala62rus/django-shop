@@ -3,3 +3,4 @@
 pyvenv.cfg
 mydb
 /docker/postgres
+/src/media

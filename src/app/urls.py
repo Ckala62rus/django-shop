@@ -14,12 +14,31 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+import socket
+
 from django.contrib import admin
 from django.urls import path, include
 
+from app import settings
+from app.settings import DEBUG, INTERNAL_IPS
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('main.urls', namespace='main')),
     path('catalog/', include('goods.urls', namespace='catalog'))
 ]
+
+if DEBUG:
+    urlpatterns += [
+        path("__debug__/", include("debug_toolbar.urls")),
+    ]
+
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+    # get ip address for docker host
+    hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+    for ip in ips:
+        # replace last octet in IP with .1
+        ip = '{}.1'.format(ip.rsplit('.', 1)[0])
+        INTERNAL_IPS.append(ip)
