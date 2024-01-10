@@ -12,7 +12,19 @@ def catalog(request):
         "content": "Магазин мебели HOME",
         "goods": goods
     }
-    return render(request, template_name='goods/catalog.html', context=context)
+    return render(
+        request,
+        template_name='goods/catalog.html',
+        context=context
+    )
 
-def product(request):
-    return render(request, template_name='goods/product.html')
+def product(request, product_slug):
+    product = Products.objects.get(slug=product_slug)
+    context = {
+        'product' : product
+    }
+    return render(
+        request,
+        template_name='goods/product.html',
+        context=context
+    )
