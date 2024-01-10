@@ -9,7 +9,7 @@ from goods.models import Categories
 
 def index(request):
 
-    categories = Categories.objects.all()
+    # categories = Categories.objects.all()
 
     # Все
     # товары
@@ -23,7 +23,7 @@ def index(request):
     context = {
         "title" : "Home - Главная страница",
         "content" : "Магазин мебели HOME",
-        "categories": categories
+        # "categories": categories
     }
 
     return render(request, template_name="main/index.html", context=context)
