@@ -7,7 +7,10 @@ from goods.models import Products
 
 # Create your views here.
 
-def catalog(request, category_slug: str, page=1) -> HttpResponse:
+def catalog(request, category_slug: str) -> HttpResponse:
+
+    page = request.GET.get('page', 1)
+
     if category_slug.lower() == 'all':
         goods = Products.objects.all()
     else:
@@ -16,7 +19,7 @@ def catalog(request, category_slug: str, page=1) -> HttpResponse:
         )
 
     paginator = Paginator(goods, 3)
-    current_page = paginator.page(page)
+    current_page = paginator.page(int(page))
 
     context = {
         "title": "Каталог",
