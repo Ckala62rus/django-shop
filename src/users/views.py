@@ -1,10 +1,10 @@
 from django.core.handlers.wsgi import WSGIRequest
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib import auth
 from django.urls import reverse
 
-from users.forms import UserLoginForm
+from users.forms import UserLoginForm, UserRegistrationForm
 
 
 # Create your views here.
@@ -34,10 +34,23 @@ def login(request: WSGIRequest) -> HttpResponse:
     )
 
 
-def registration(request: HttpResponse) -> HttpResponse:
+def registration(request: WSGIRequest) -> HttpResponse:
+
+    if request.method == "POST":
+        form = UserRegistrationForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            user = form.instance
+            auth.login(request, user)
+            return HttpResponseRedirect(reverse('user:login'))
+    else:
+        form = UserRegistrationForm()
+
     context = {
         'title': 'Home - Регистрация',
+        'form': form
     }
+
     return render(
         request,
         template_name="users/registration.html",
@@ -45,7 +58,7 @@ def registration(request: HttpResponse) -> HttpResponse:
     )
 
 
-def profile(request: HttpResponse) -> HttpResponse:
+def profile(request: WSGIRequest) -> HttpResponse:
     context = {
         'title': 'Home - Кабинет',
     }
@@ -56,12 +69,16 @@ def profile(request: HttpResponse) -> HttpResponse:
     )
 
 
-def logout(request: HttpResponse) -> HttpResponse:
-    context = {
-        'title': 'Home - Выход',
-    }
-    return render(
-        request,
-        '',
-        context
-    )
+def logout(request: WSGIRequest) -> HttpResponse:
+    auth.logout(request)
+
+    return redirect(reverse('main:index'))
+
+    # context = {
+    #     'title': 'Home - Выход',
+    # }
+    # return render(
+    #     request,
+    #     '',
+    #     context
+    # )
