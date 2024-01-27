@@ -1,10 +1,11 @@
+from django.contrib.auth.decorators import login_required
 from django.core.handlers.wsgi import WSGIRequest
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib import auth
 from django.urls import reverse
 
-from users.forms import UserLoginForm, UserRegistrationForm
+from users.forms import UserLoginForm, UserRegistrationForm, ProfileForm
 
 
 # Create your views here.
@@ -58,10 +59,21 @@ def registration(request: WSGIRequest) -> HttpResponse:
     )
 
 
+@login_required
 def profile(request: WSGIRequest) -> HttpResponse:
+    if request.method == "POST":
+        form = ProfileForm(data=request.POST, instance=request.user, files=request.FILES)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('user:profile'))
+    else:
+        form = ProfileForm(instance=request.user)
+
     context = {
         'title': 'Home - Кабинет',
+        'form': form
     }
+
     return render(
         request,
         template_name="users/profile.html",
@@ -69,16 +81,7 @@ def profile(request: WSGIRequest) -> HttpResponse:
     )
 
 
+@login_required
 def logout(request: WSGIRequest) -> HttpResponse:
     auth.logout(request)
-
     return redirect(reverse('main:index'))
-
-    # context = {
-    #     'title': 'Home - Выход',
-    # }
-    # return render(
-    #     request,
-    #     '',
-    #     context
-    # )
